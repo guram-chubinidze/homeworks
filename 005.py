@@ -285,19 +285,136 @@ while startTask:
        else:
         res = my_fibonacci(iNumber)
         print(f"ფიბონაჩის ლისტი {iNumber} წევრით: {res}") 
+        startTask = False
 # #4 პალინდრომი
 # ამოცანა: შეამოწმე, არის თუ არა შეყვანილი ტექსტი პალინდრომი (მხოლოდ ასოები/ციფრები). თუ
 # არაა, შესთავაზე ყველაზე ახლო პალინდრომი ერთი სიმბოლოს ჩასმით/წაშლით.
+print(" #4 პალინდრომი") 
+import string
+
+mkhedruli = [chr(code) for code in range(0x10D0, 0x10F1)]
+allowSymbols = mkhedruli + [char for char in string.digits] + [" "]+[char for char in string.ascii_letters]
+
+startTask = True
+while startTask:
+    iText = input("შეიყვანეთ ტექსტი: ")
+
+    if not all(char in allowSymbols for char in iText): 
+        print("შეყვანილი ტექსტი უნდა შედგებოდეს მხოლოდ ასოებისა და ციფრებისგან")
+        continue
+    else:
+        startTask = False
+
+iText = iText.strip().lower()
+## შევამოწმოთ არის თუ არა პალინდრომი
+def checkPalindrome(text):
+    lText = len(text)
+    divText = lText//2
+    firstHalf = text[:divText]
+    secondHalf = text[-divText:][::-1]
+    return firstHalf == secondHalf
+
+lText = len(iText)
+divText = lText//2
+firstHalf = list(iText[:divText])
+secondHalf = list(iText[-divText:][::-1])
+
+noequalSymbols = []
+
+i = divText-1
+while i >= 0:    
+    if(firstHalf[i] != secondHalf[i]):
+        noequalSymbols.append((i, firstHalf[i], secondHalf[i]))
+    i-=1
+
+
+
+
+if checkPalindrome(iText+iText[:1]):
+    print(f"შეყვანილი ტექსტი პალინდრომი გახდება თუ ერთი სიმბოლოს {iText[:1]} დამატებით ბოლოში")
+elif checkPalindrome(iText[-1]+iText):
+    print(f"შეყვანილი ტექსტი პალინდრომი გახდება თუ ერთი სიმბოლოს {iText[-1:]} დამატებით დასაწყისში")
+elif len(noequalSymbols) == 1:
+    print(f"შეყვანილი ტექსტი პალინდრომი გახდება თუ ერთი სიმბოლოს {noequalSymbols[0][1]} წაშლით პოზიციიდან {noequalSymbols[0][0]}")
+elif len(noequalSymbols) == 0:
+    print("შეყვანილი ტექსტი უკვე პალინდრომია")
+else:
+    print("შეყვანილი ტექსტი პალინდრომი ვერ გახდება ერთი სიმბოლოს დამატებით ან წაშლით")            
 
 # #5 ზედმეტსახელების გენერატორი
 # მომხმარებელს შემოაქვს მხოლოდ ერთი სიტყვა(სხვა შემთხვევები დაბლოკე) და შენ სთავაზობ 5
 # ზედმეტსახელს ამ სიტყვასთან კავშირში.
+print("# 5 ზედმეტსახელების გენერატორი")
+
+from datetime import date
+inputWord = input("შეიყვანეთ სიტყვა: ")
+if not inputWord.isalpha() or len(inputWord.split()) > 1:
+    print("შეყვანილი ტექსტი უნდა შედგებოდეს მხოლოდ ასოებისა და ერთი სიტყვისგან")
+else:   
+    nameGen = [{"conn": ["-","_",".","",""], 
+                "endings": [111,222,333,444,555,666,777,888,999,date.today().year,""],
+                "replace": {"a": "@", "s": "$","1":"!","n":""}}]
+
+    countNicknames = 5
+    nicknameSym = ""
+    for i in range(countNicknames):
+     conn  = random.choice(nameGen[0]["conn"])
+     ending = random.choice(nameGen[0]["endings"])
+     replace = random.choice(list(nameGen[0]["replace"].keys()))
+     nicknameSym = inputWord.replace(replace, nameGen[0]["replace"][replace])
+     nickname = nicknameSym + conn + str(ending)
+     print(f"შენთვის გენერირებული ზედმეტსახელი: {nickname}")
+     i += 1
 
 # #6 სორტირება
 # მომხმარებელს შემოჰყავს რიცხვები თითო გამოტოვებით, (ულიმიტოდ რამდენიც უნდა) პროგრამა
 # სთავაზობს როგორ უნდა რომ დაუსორტირდეს აღნიშნული: კლებადობით, ზრდადობით, random-ად,
 # მხოლოდ უნიკალური მონაცემები დატოვოს. რომელსაც აირჩევს უნდა გამოვიდეს ზუსტად ისე
 # დალაგებული სია.
+print("# 6 სორტირება")
+startTask = True
+data = {"inputNumbers":None}
+
+while startTask:    
+        if data["inputNumbers"] is None:   
+           inputNumbers = input("შეიყვანეთ რიცხვები, თითო გამოტოვებით: exit -გამოსვლა  ")
+           data["inputNumbers"] = inputNumbers
+       
+           numbersList = inputNumbers.split() # აქ ვიღებთ სტრინგს და ვყოფთ მას ლისტად, სადაც თითო ელემენტი არის რიცხვი სტრინგის სახით  
+        # აქ ვქმნით ახალ ლისტს, სადაც თითო ელემენტი არის რიცხვი ინტის სახით,
+        #  ამისთვის ვიყენებთ list comprehension-ს და ვცვლით სტრინგებს ინტებზე        
+           numbersListInt = [int(x) for x in numbersList] 
+
+        if inputNumbers.lower() == "exit":
+            print("პროგრამიდან გამოსვლა...")
+            startTask = False
+        else:
+            chooceSort = input("აირჩიეთ სორტირების ტიპი: 1-კლებადობით, 2-ზრდადობით, 3-random-ად, 4-მხოლოდ უნიკალური მონაცემები დატოვოს: ")  
+            if chooceSort.lower() == "exit":
+                print("პროგრამიდან გამოსვლა...")
+                startTask = False
+            else:    
+                if chooceSort == "1":
+                    sortedList = sorted(numbersListInt, reverse=True)
+                    print(f"რიცხვები კლებადობით: {sortedList}")
+                    continue
+                elif chooceSort == "2":
+                    sortedList = sorted(numbersListInt)
+                    print(f"რიცხვები ზრდადობით: {sortedList}")
+                    continue
+                elif chooceSort == "3":
+                    import random
+                    sortedList = numbersListInt[:]
+                    random.shuffle(sortedList)
+                    print(f"რიცხვები random-ად: {sortedList}")
+                    continue
+                elif chooceSort == "4":
+                    sortedList = list(set(numbersListInt))
+                    print(f"რიცხვები მხოლოდ უნიკალური მონაცემები დატოვოს: {sortedList}")
+                    continue
+                else:
+                    print("არასწორი არჩევანი, გთხოვთ აირჩიოთ 1, 2, 3 ან 4") 
+                    continue               
 
 # #7 ტექსტის ფილტრი
 # მომხმარებელი შეჰყავს ტექსტი.
