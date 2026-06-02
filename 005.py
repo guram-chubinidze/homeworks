@@ -303,6 +303,17 @@ while startTask:
 # მომხმარებელი შეჰყავს ტექსტი.
 # ამოცანა: პროგრამამ უნდა წაშალოს ყველა ციფრი და სიმბოლო, დატოვოს მხოლოდ ასოები და
 # სივრცეები.
+print("# 7 ტესტის ფილტრაცია")
+inputText = input("შეიყვანეთ ტექსტი: ")
+def text_filter(text):
+    result = ""
+    for char in text:
+        if char.isalpha() or char.isspace():
+            result += char
+    return result
+
+filteredText = text_filter(inputText)
+print(f"ფილტრირებული ტექსტი: {filteredText}")
 
 # #8 პირამიდა
 # მომხმარებელი შეჰყავს რიცხვების სია (მაგ. 3,5,7,2).
@@ -312,14 +323,68 @@ while startTask:
 # 8 12 9
 # 20 21
 # 41
+print("# 8 პირამიდა ")
+inputNumbers = input("შეიყვანეთ რიცხვების სია (მაგ. 3,5,7,2): ")
+first_el = " ".join(inputNumbers)
+numbers = [int(num.strip()) for num in inputNumbers.split(",")]
+numbersCopy = numbers.copy()
+
+## სტრიქონი
+def create_row(my_list):   
+      el = []        
+      for i in range(len(my_list)-1):
+          el.append(my_list[i]+my_list[i+1]) 
+      return el      
+# სვეტი
+def create_pyramid(my_numsbers):    
+    pyramid = [] 
+    for i in range(len(my_numsbers)-1): 
+         if(i == 0):
+          dt = create_row(my_numsbers)
+         else:
+          dt = create_row(pyramid[i-1]) 
+         pyramid.append(dt)
+         my_numsbers = my_numsbers[1:]
+    return pyramid             
+       
+my_piramid = [numbers] + create_pyramid(numbersCopy)
+
+for i in range(len(my_piramid)):
+     my_space = " "*i
+     els = " ".join(map(str,my_piramid[i]))
+     print(f"{my_space}{els}")
 
 # #9 მომხმარებელი შეჰყავს ნებისმიერი ტექსტი, მოძებნე, რომელი სიტყვა მეორდება ტექსტში ყველაზე
 # მეტჯერ. მაგ: "Python is great and python is easy" → ყველაზე ხშირია
 # "python". თუ ორი ან მეტი სიტყვაა ტოლი, დააბრუნე ყველა.
+print("# 9 ხშირად გამეორებული სიტყვები")
+import string
+
+inputText = input("შეიყვანეთ ტექსტი: ")
+inputText =  inputText.strip().lower()
+cleanInput = inputText.translate(str.maketrans("","",string.punctuation))
+listWords = cleanInput.split()
+counts = {}
+for word in listWords:
+    counts[word] = counts.get(word,0)+1 # 0 საწყისი მნიშვნელობა
+repeated_words = [(word,count)  for word, count in counts.items() if count > 1] # გამეორებული სიტყვები
+repeated_words.sort() # სორტირება
+print(f"{repeated_words}")  
 
 # #10 მომხმარებელს შეჰყავს წინადადება, ამოცანა: გამოიანგარიშე თითოეული სიტყვის სიგრძე და
 # დააბრუნე dictionary
 # მაგალითად: "Python is fun" → {"Python": 6, "is": 2, "fun": 3}
+
+print("# 10")
+import string
+inputText = input("შეიყვანე წინადადება: ")
+inputText =  inputText.strip().lower()
+cleanInput = inputText.translate(str.maketrans("","",string.punctuation))
+listWords = cleanInput.split()
+counts = {}
+# word-ის ნაცვლად ვწერთ len(word) და dict ს ვაბრუნებთ
+result_list = [{word:len(word)} for word in listWords]
+print(result_list)
 
 # # შექმენით გითჰაბზე რეპოზიტორია, დაკლონეთ ედიტორში, 1,2,3 ამოცანის ამოხსნის შემდეგ მთავარ
 # ბრენჩზე გააკეთე დამატება , კომიტი და აიტანე გითჰაბზე ეს სამი ამოცანა, შემდეგ გააგრძელე
