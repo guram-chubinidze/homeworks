@@ -1,0 +1,30 @@
+git checkout -b  homework_6
+git checkout -b  part_1
+git add .
+git status
+git commit -m "Add Tasks 1-6"
+git push origin part_1
+git fetch
+git checkout -b  part_2
+git add .
+git status
+git commit -m "Add Tasks 7-10"
+git push origin part_2
+git fetch
+git checkout homework_6
+git add .
+git status
+git merge part_1
+git commit -m "merge homework_6 & part_1"
+git merge part_2
+git commit -m "merge homework_6 & part_2"
+git add .
+git commit -m "Add git commands"
+git commit -m "Finish homework_6"
+git push origin homework_6
+
+
+
+
+
+

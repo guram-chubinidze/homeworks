@@ -151,14 +151,6 @@ while startGame:
 
 # \#7 თამაში უკუსვლაზე
 
-# კომპიუტერი ირჩევს შემთხვევითობის პრინციპით რიცხვს 1-20 მდე, მოთამაშეს აქვს მხოლოდ 5 წამი რიცხვის გამოსაცნობად,
-#  თუ 5 წამში სწორ რიცხვს ვერ შეიყვანს, თამაში სრულდება და გამოდის ტექსტი "დრო ამოიწურა, თქვენ დამარცხდით".
-# from datetime import datetime, timedelta
-# import time, random
-
-from datetime import datetime
-import random
-import time
 
 # 1. მიმდინარე დრო წამებში (Timestamp)
 now_in_seconds = time.time()
