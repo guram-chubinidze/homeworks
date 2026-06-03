@@ -151,13 +151,38 @@ while startGame:
 
 # \#7 თამაში უკუსვლაზე
 
-# კომპიუტერი ირჩევს შემთხვევითობის პრინციპით რიცხვს 1-20 მდე, მოთამაშეს აქვს მხოლოდ 5 წამი რიცხვის გამოსაცნობად, თუ 5 წამში სწორ რიცხვს ვერ შეიყვანს, თამაში სრულდება და გამოდის ტექსტი "დრო ამოიწურა, თქვენ დამარცხდით".
-
-
-
+# კომპიუტერი ირჩევს შემთხვევითობის პრინციპით რიცხვს 1-20 მდე, მოთამაშეს აქვს მხოლოდ 5 წამი რიცხვის გამოსაცნობად,
+#  თუ 5 წამში სწორ რიცხვს ვერ შეიყვანს, თამაში სრულდება და გამოდის ტექსტი "დრო ამოიწურა, თქვენ დამარცხდით".
 # from datetime import datetime, timedelta
-
 # import time, random
+
+from datetime import datetime
+import random
+import time
+
+# 1. მიმდინარე დრო წამებში (Timestamp)
+now_in_seconds = time.time()
+# 2. 5 წამის შემდეგ
+after_5_seconds = now_in_seconds + 5
+randNumFrom = random.randint(1,20)
+parsed_date_start = datetime.fromtimestamp(now_in_seconds).strftime('%Y-%m-%d %H:%M:%S')
+parsed_date_end = datetime.fromtimestamp(after_5_seconds).strftime('%Y-%m-%d %H:%M:%S')
+
+print(f"თამაში დაიწყო: {parsed_date_start}")
+print(f"თამაში დასრულდება: {parsed_date_end}")
+startGame7 = True
+while startGame7:
+      inputNum = int(input("შეიყვანეთ რიცხვი: "))  
+      secs = int(after_5_seconds-time.time())
+      if int(time.time()) > int(after_5_seconds):
+            startGame7 = False
+            print(f"თქვენ დამარცხდით! დრო ამოიწურა. სწორი პასუხი იყო: {randNumFrom}. თამაში დასრულდა {parsed_date_end}") 
+      elif inputNum == randNumFrom:
+            startGame7 = False 
+            print(f"გილოცავთ თქვენ გაიმარჯვეთ! სწორი პასუხია: {randNumFrom}")            
+      else:
+            print(f"პასუხი არასწორია! კიდევ სცადეთ: თამაშის დასრულებამდე დარჩენილია {secs} წამი")
+            continue
 
 
 
@@ -168,6 +193,27 @@ while startGame:
 # player1 = start + timedelta(seconds=random.randint(5,20))
 
 # player2 = start + timedelta(seconds=random.randint(5,20))
+
+from datetime import datetime, timedelta
+import random
+
+start = datetime.now()
+
+player1 = start + timedelta(seconds=random.randint(5,20))
+
+player2 = start + timedelta(seconds=random.randint(5,20))
+
+dt_player1 = player1.strftime("%Y/%m/%d %H:%m:%S")
+dt_player2 = player2.strftime("%Y/%m/%d %H:%m:%S")
+
+if player2>player1:
+    print(f"პირველი მოთამაშე მივიდა უფრო სწრაფად. player1 = {dt_player1}; player2 = {dt_player2} ")
+elif player2 == player1:
+    print(f"ორივე მოთამაშე მივიდა თანაბრად. player1 = {dt_player1}; player2 = {dt_player2} ") 
+else:   
+   print(f"მეორე მოთამაშე მივიდა უფრო სწრაფად. player1 = {dt_player1}; player2 = {dt_player2} ")     
+
+
 
 
 
@@ -180,65 +226,76 @@ while startGame:
 # birthday = date(2000, 12, 10)
 
 
+from datetime import datetime
+
+
+ibirthday = input("შეიყვანეთ დაბადების დღე (წელი/თვე/რიცხვი): ")
+birthday = datetime.strptime(ibirthday,"%Y/%m/%d")
+
+curDate = datetime.now()
+# str month and days current
+curMandD = curDate.strftime('%m')+curDate.strftime('%d') 
+iCurMandD = int(curMandD)
+# str month and days bday
+bdayMandD = birthday.strftime('%m')+birthday.strftime('%d') 
+iBdayMandD = int(bdayMandD)
+
+curYear = curDate.year
+
+if iCurMandD > iBdayMandD:
+    curYear += 1
+
+nextBday = datetime(curYear,birthday.month,birthday.day)
+
+diffDays = (nextBday - curDate).days
+
+print(f"შენ დაბადების დღემდე დარჩენილია {diffDays} დღე")
+
+
 
 
 
 # \#10 საცავი - ჯუნიორ ჰაკერი :)
 
-# თამაში არის შემდეგი - გვაქვს სეიფი რომელსაც აქვს ციფრები 1-6 მდე პაროლი არ ვიცით, ყოველ დღე კომპიუტერი აგენერირებს ახალ პაროლს (შემთხვევითობის პრინციპით) პაროლი არის 4 ციფრიანი. ჩვენი მიზანია დავწეროთ ისეთი კოდი რომელიც შეამოწმებს ვარიანტებს და როცა მოხდება კომპიუტერის მიერ დაგენერირებული პაროლის დამთხვევა უნდა გამოვიტანოთ შეტყობინება "პაროლი სწორია, საცავი გახსნილია", აუცილებელი პირობაა გამოვიტანოთ ყველა ჩვენს მიერ ნაცადი პაროლი სანამ მივალთ სწორ ვარიანტამდე.
+# თამაში არის შემდეგი - გვაქვს სეიფი რომელსაც აქვს ციფრები 1-6 მდე პაროლი არ ვიცით,
+#  ყოველ დღე კომპიუტერი აგენერირებს ახალ პაროლს (შემთხვევითობის პრინციპით) პაროლი არის 4 ციფრიანი. 
+# ჩვენი მიზანია დავწეროთ ისეთი კოდი რომელიც შეამოწმებს ვარიანტებს 
+# და როცა მოხდება კომპიუტერის მიერ დაგენერირებული პაროლის დამთხვევა უნდა გამოვიტანოთ შეტყობინება "პაროლი სწორია,
+#  საცავი გახსნილია", აუცილებელი პირობაა გამოვიტანოთ ყველა ჩვენს მიერ ნაცადი პაროლი სანამ მივალთ სწორ ვარიანტამდე.
+
+from itertools import  product
+import random
+import time
 
 
 
+allowNums = [1,2,3,4,5,6]
+my_pass = tuple(random.choices(allowNums,k=4))
 
+result1 = [v for v in product(allowNums, repeat=4)] # 4 სიმბოლოდ
+result2 = result1.copy()
 
+startGame10 = True
+tries = 0
+sleep_time = 0#60*24*60 #86400
+while startGame10:
+    next_chance = random.choices(result2)[0]
+    tries += 1
+    #print(f"მცდელობა # {tries}")
+    result2.remove(next_chance)
+    if my_pass == next_chance:
+        startGame10 = False 
+        tries_pass = list(set(result1)-set(result2))
+        len_tr_pass =len(tries_pass)      
+        print(f"თქვენ გამოიცანით პაროლი!\n მცდელობების რაოდენობა = {tries}. ჩაფიქრებული იყო {my_pass}. ნაცადი კომბინაციები = {tries_pass}")
+    time.sleep(sleep_time) 
 
-
-
-
-
-
-
-
-
-
-# სავარჯიშოები გავყოთ ორ ნაწილად: 1-6 მდე სავარჯიშოებისთვის გავაკეთოთ ახალი ბრანჩი რომელსაც დავარქმევთ სახელს და ვიმუშავებთ, როდესაც დავასრულებთ ყველას უნდა მოხდეს GITHUB-ზე ატანა გიტ ბრძანებებით. 7-10-მდე სავარჯიშოებისთვის უნდა გავაკეთოთ კიდევ ერთი ბრენჩი და იქ ვიმუშაოთ, დასრულების შემდეგ ავიტანოთ GITHUB-ზე, გავაკეთოთ ყველას MERGE და ამის შემდეგ განვაახლოთ ჩვენი main ბრენჩი EDITOR-ში.
+# სავარჯიშოები გავყოთ ორ ნაწილად: 1-6 მდე სავარჯიშოებისთვის გავაკეთოთ ახალი ბრანჩი რომელსაც დავარქმევთ სახელს და ვიმუშავებთ,
+#  როდესაც დავასრულებთ ყველას უნდა მოხდეს GITHUB-ზე ატანა გიტ ბრძანებებით.
+#  7-10-მდე სავარჯიშოებისთვის უნდა გავაკეთოთ კიდევ ერთი ბრენჩი და იქ ვიმუშაოთ,
+#  დასრულების შემდეგ ავიტანოთ GITHUB-ზე, გავაკეთოთ ყველას MERGE და ამის შემდეგ განვაახლოთ ჩვენი main ბრენჩი EDITOR-ში.
 
 
 
 # ყველა ბრძანება ამოიწერეთ და დავალებას დაურთეთ თან, ასევე მიუთითეთ თქვენი გითჰაბის შესაბამისი რეპოზიტორია.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ნაჩვენებია დავალება #5.md
