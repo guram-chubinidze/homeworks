@@ -318,6 +318,7 @@ class Desc:
     def __init__(self,cards):
         self.__cards = self.shuffle(cards)  
 
+
     @staticmethod 
     def shuffle(cards):
         return random.shuffle(cards)
@@ -333,6 +334,7 @@ class Desc:
     
 card = Card()
 sdeck = Desc.create_standard_deck(card) 
+
 
 # shuffle = Desc.shuffle(sdeck)
 my_card = random.sample(sdeck,k=5)
