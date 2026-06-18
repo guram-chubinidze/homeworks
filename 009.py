@@ -108,7 +108,7 @@ class Monster:
     def create_from_level(cls,level):
         power =  random.randint(10**(level-1),10**level-1)
         monsters = ["Medusa","Python","Minotaur","Cerberus","Hydra","Giants","Typhon","Sirens","Lamia","Sphinx"] 
-        name = random.choice(monsters)
+        name = random.sample(monsters,k=1)
         return cls(name,power) 
 
     def __str__(self):
@@ -316,7 +316,8 @@ class Card:
 
 class Desc:
     def __init__(self,cards):
-        self.__cards = cards  
+        self.__cards = self.shuffle(cards)  
+
 
     @staticmethod 
     def shuffle(cards):
@@ -333,10 +334,14 @@ class Desc:
     
 card = Card()
 sdeck = Desc.create_standard_deck(card) 
-my_card = random.choices(sdeck,k=5)
-my_card_show = [f"{mc[1]} {mc[0]}" for mc in my_card]
+
+
+# shuffle = Desc.shuffle(sdeck)
+my_card = random.sample(sdeck,k=5)
+
+my_card_show = [f"{mc[0]} {mc[1]} " for mc in my_card]
 # my_card_suits = [card[1] for card in my_card]
-my_card_ranks = [card[0] for card in my_card]
+my_card_ranks = [sdeck[0] for sdeck in my_card]
 
 # check_suits = Desc.check_comb(my_card_suits)
 check_ranks = Desc.check_comb(my_card_ranks)
