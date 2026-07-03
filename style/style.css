@@ -1,0 +1,399 @@
+/* გლობალური პარამეტრები */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Consolas', 'Courier New', Monaco, monospace;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-size: 14px;
+    overflow: hidden; /* აიცილებს ორმაგ სკროლებს ეკრანზე */
+}
+
+/* მთავარი მაკეტი */
+.ide-container {
+    display: flex;
+    height: 100vh; /* ფიქსირებული სიმაღლე ეკრანზე */
+    width: 100vw;
+}
+
+/* მარცხენა მენიუ - File Explorer */
+.ide-sidebar {
+    min-width: 220px;
+    background-color: #252526;
+    border-right: 1px solid #3c3c3c;
+    padding: 15px 0;
+    flex-shrink: 0;
+}
+
+.ide-sidebar h6 {
+    font-size: 11px;
+    color: #858585;
+    text-transform: uppercase;
+    padding: 0 20px 10px 20px;
+    letter-spacing: 1px;
+}
+
+.sidebar-brand {
+    padding: 0 20px 20px 20px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-list a {
+    display: block;
+    color: #cccccc;
+    text-decoration: none;
+    padding: 8px 20px;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.file-list a:hover {
+    background-color: #2a2d2e;
+    color: #ffffff;
+}
+
+.file-list a.active-file {
+    background-color: #37373d;
+    color: #e0a96d;
+}
+
+/* მარჯვენა კონტენტის ზონა */
+.ide-main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+/* ზედა ნავიგაციის ტაბები */
+header {
+    background-color: #2d2d2d;
+    height: 35px;
+    display: flex;
+    border-bottom: 1px solid #1e1e1e;
+    flex-shrink: 0;
+}
+
+nav {
+    display: flex;
+    height: 100%;
+}
+
+nav a {
+    color: #969696;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    background-color: #2d2d2d;
+    border-right: 1px solid #252526;
+    height: 100%;
+}
+
+nav a:hover {
+    background-color: #2a2a2a;
+    color: #e1e1e1;
+}
+
+nav a.active {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-top: 2px solid #007acc;
+}
+
+nav a::after {
+    content: " ×";
+    margin-left: 8px;
+    color: #6a6a6a;
+}
+
+/* ძირითადი სამუშაო სივრცე */
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #1e1e1e;
+}
+
+main h1 {
+    font-size: 20px;
+    color: #4ec9b0;
+    padding: 20px 20px 10px 20px;
+    margin: 0;
+}
+
+/* შიდა სტრუქტურული კონტეინერი */
+.content-wrapper {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    width: 100%;
+    align-items: stretch; /* აიძულებს გვერდს და საიდბარს თანაბარ სიმაღლეს */
+}
+
+/* მარცხენა შიგთავსი */
+.page-content {
+    flex-grow: 1;
+    min-width: 0;
+    padding: 10px 20px 20px 20px;
+    overflow-y: auto; /* შიდა სკროლი მხოლოდ კონტენტს */
+}
+
+/* მარჯვენა მენიუ (MANIFEST) - ჩამოდის ბოლომდე */
+.right-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background-color: #252526;
+    border-left: 1px solid #3c3c3c;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.sidebar-header {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #8b949e;
+    padding: 10px 20px;
+    border-bottom: 1px solid #3c3c3c;
+    font-weight: 600;
+}
+
+.sidebar-section {
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #e6edf3;
+    margin-bottom: 12px;
+}
+/* სექციის კონტეინერი (Dark IDE სტილი) */
+        .animation-section {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            text-align: center;
+            padding: 12px 20px;
+        }
+
+        /* ლოგოს კონტეინერი */
+        .python-logo-wrapper {
+            display: inline-block;
+        }
+
+        /* ბრუნვის ანიმაცია */
+        @keyframes rotatePython {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* სურათის სტილი და ანიმაციის მიბმა */
+        .python-logo {
+            display: block;
+            margin: 0 auto;
+            /* 6 წამი წრფივი დაუსრულებელი ბრუნვა */
+            animation: rotatePython 6s linear infinite;
+
+            /* ჩრდილის ეფექტი */
+            filter: drop-shadow(0px 4px 12px rgba(55, 118, 171, 0.3));
+        }
+
+        /* მაუსის მიტანისას (Hover) უფრო სწრაფად დატრიალდეს */
+        .python-logo:hover {
+            animation-duration: 3s;
+        }
+
+/* ტერმინალის პანელის სტილები */
+.terminal-panel {
+    background-color: #1e1e1e;
+    border-top: 1px solid #3c3c3c;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    height: 35px;
+    background-color: #2d2d2d;
+    border-bottom: 1px solid #3c3c3c;
+    user-select: none;
+}
+
+.terminal-tabs {
+    display: flex;
+    gap: 15px;
+}
+
+.terminal-tabs span {
+    color: #858585;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 35px;
+}
+
+.terminal-tabs .active-tab {
+    color: #ffffff;
+    border-bottom: 2px solid #007acc;
+}
+
+.terminal-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #858585;
+    font-size: 11px;
+}
+
+.terminal-body {
+    padding: 15px;
+    color: #cccccc;
+    font-size: 13px;
+    line-height: 1.6;
+    height: 160px;
+    overflow-y: auto;
+}
+
+.terminal-welcome {
+    color: #608b4e;
+}
+
+.terminal-subtext {
+    color: #858585;
+    margin-bottom: 5px;
+    font-size: 11px;
+}
+
+.typing-line {
+    display: flex;
+    align-items: flex-start;
+}
+
+.terminal-prompt {
+    color: #569cd6;
+    font-weight: bold;
+    margin-right: 10px;
+    white-space: pre;
+}
+
+#typing-text {
+    color: #d4d4d4;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* IDE სტილის ფუტერი */
+footer {
+    background-color: #007acc;
+    /* VS Code-ის ლურჯი ქვედა ზოლი (Status Bar) */
+    color: #ffffff;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    font-weight: bold;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* სოციალური აიქონების მთავარი კონტეინერი */
+.social-icons {
+    display: flex !important;
+    /* იძულებითი ფლექსი */
+    flex-direction: row !important;
+    /* მკაცრად ჰორიზონტალური ხაზი */
+    align-items: center !important;
+    /* ვერტიკალურად ზუსტი ცენტრი */
+    gap: 15px;
+    /* დაშორება აიქონებს შორის */
+}
+
+/* თავად ლინკის თეგები */
+.social-icons a {
+    display: inline-flex !important;
+    /* უზრუნველყოფს, რომ ლინკი ბლოკად არ გაიჭიმოს ქვევით */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 16px;
+    /* ლინკის ფიქსირებული სიგანე */
+    height: 16px;
+    /* ლინკის ფიქსირებული სიმაღლე */
+    transition: transform 0.2s ease;
+}
+
+/* თავად SVG კოდი */
+.social-icons svg {
+    width: 16px !important;
+    height: 16px !important;
+    fill: #ffffff;
+    display: block;
+    /* აქრობს SVG-ის შიდა უხილავ დაშორებებს */
+    transition: fill 0.2s ease;
+}
+
+/* მაუსის მიტანის ეფექტები (Hover) */
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+.social-icons a[title="Facebook"]:hover svg {
+    fill: #e6f2ff;
+}
+
+.social-icons a[title="Instagram"]:hover svg {
+    fill: #ffd3e3;
+}
+
+.social-icons a[title="YouTube"]:hover svg {
+    fill: #ffb3b3;
+}
+
+.social-icons a[title="Gmail"]:hover svg {
+    fill: #ffe6e6;
+}
+
+.social-icons a[title="GitHub"]:hover svg {
+    fill: #f0f6fc;
+}
+
+.social-icons a[title="Twitter"]:hover svg {
+    fill: #1da1f2;
+}

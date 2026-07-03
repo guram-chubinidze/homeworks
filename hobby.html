@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDE - hobby.html</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="icon" href="./images/logo.svg" sizes="32x32" />
+    <style>     
+        /* ჰობების გალერეის კონტეინერი */
+        .hobby-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            /* ავტომატურად ანაწილებს 4 სურათს ხაზზე */
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* თითოეული ჰობის ბარათი */
+        .hobby-card {
+            background-color: #1e1e1e;
+            /* VS Code-ის ფონი */
+            border: 1px solid #2d2d2d;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        /* სურათის ჩარჩო */
+        .hobby-image-wrapper {
+            width: 100%;
+            height: 250px;
+            /* ფიქსირებული სიმაღლე, რომ ყველა სურათი თანაბარი იყოს */
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .hobby-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* სურათი არ გაიწელება, ლამაზად ჩაჯდება ზომაში */
+            filter: grayscale(40%);
+            /* ოდნავ მინავებული ფერები კოდის ესთეტიკისთვის */
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        /* ტექსტი სურათის ქვემოთ */
+        .hobby-card span {
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            color: #858585;
+        }
+
+        /* მაუსის მიტანის ეფექტი (Hover) */
+        .hobby-card:hover {
+            border-color: #007acc;
+            /* ლურჯი ჩარჩო ჰოვერზე */
+        }
+
+        .hobby-card:hover .hobby-image-wrapper img {
+            filter: grayscale(0%);
+            /* ფერები სრულად ბრუნდება */
+            transform: scale(1.05);
+            /* სურათი ოდნავ ახლოვდება */
+        }
+
+        .hobby-card:hover span {
+            color: #007acc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ide-container">
+        <!-- Sidebar -->
+        <div class="ide-sidebar">
+            <div class="sidebar-brand">
+                <svg fill="#569cd6" width="16px" height="16px" viewBox="0 0 32 32">
+                    <path d="M30.865 3.448l-6.583-3.167c-0.766-0.37-1.677-0.214-2.276 0.385l-12.609 11.505-5.495-4.167c-0.51-0.391-1.229-0.359-1.703 0.073l-1.76 1.604c-0.583 0.526-0.583 1.443-0.005 1.969l4.766 4.349-4.766 4.349c-0.578 0.526-0.578 1.443 0.005 1.969l1.76 1.604c0.479 0.432 1.193 0.464 1.703 0.073l5.495-4.172 12.615 11.51c0.594 0.599 1.505 0.755 2.271 0.385l6.589-3.172c0.693-0.333 1.13-1.031 1.13-1.802v-21.495c0-0.766-0.443-1.469-1.135-1.802zM24.005 23.266l-9.573-7.266 9.573-7.266z" />
+                </svg>
+                <span>WORKSPACE</span>
+            </div>
+            <h6>EXPLORER</h6>
+            <div class="file-list">
+                <a href="index.html">📄 index.html</a>
+                <a href="hobby.html" class="active-file">📄 hobby.html</a>
+                <a href="contact.html">📄 contact.html</a>
+            </div>
+        </div>
+
+        <div class="ide-main-content">
+            <header>
+                <nav>
+                    <a href="index.html">index.html</a>
+                    <a href="hobby.html" class="active">hobby.html</a>
+                    <a href="contact.html">contact.html</a>
+                </nav>
+            </header>
+
+            <main>
+                <h1>// ჩემი ჰობის შესახებ</h1>
+
+                <div class="content-wrapper">
+                    <!-- მარცხენა ძირითადი შიგთავსი -->
+                    <div class="page-content">                        
+                        <div class="hobby-gallery">
+                            <!-- ჰობი 1 -->
+                            <div class="hobby-card">
+                                <div class="hobby-image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=500"
+                                     alt="Cold Beer"
+                                     title="cat /etc/lifestyle/drinks.conf -> სეზონური განრიგი: ახლა ლუდის დროა, ზოგადად — ღვინის, ზამთარში კი — არყის, კონიაკის და ვისკის. ჰობია თუ არა, არ ვიცი. " 
+                                     >
+                                </div>
+                                <span>01. Alcohol Enthusiast</span>
+                            </div>
+                            <!-- ჰობი 2 -->
+                            <div class="hobby-card">
+                                <div class="hobby-image-wrapper">
+                                    <img src="https://images.pexels.com/photos/3148452/pexels-photo-3148452.jpeg?auto=compress&cs=tinysrgb&w=500" 
+                                    alt="Football Match"
+                                    title="football.log: [INFO]-> სტატუსი: ფეხბურთი ნამდვილად იყო ჩემი ჰობი, მაგრამ ასაკისა და წონის გამო, მოედნიდან მაყურებლებში გადავინაცვლე."
+                                    >
+                                </div>
+                                <span>02. Football Match</span>
+                            </div>
+                            <!-- ჰობი 3 -->
+                            <div class="hobby-card">
+                                <div class="hobby-image-wrapper">
+                                    <img src="https://images.pexels.com/photos/1757363/pexels-photo-1757363.jpeg?auto=compress&cs=tinysrgb&w=500"
+                                     alt="Small Group Hiking"
+                                     title="hiking.service: [ACTIVE] -> რეჟიმი: ბოდიალი მთაში (სულ 2-3 კაცი). ხალხის სიმჭიდროვე: მინიმალური. ალკოჰოლის სტატუსი: აუცილებელი / ჩატვირთულია."
+                                     >
+                                </div>
+                                <span>03. Small Group Hiking</span>
+                            </div>
+                            <!-- ჰობი 4 -->
+                            <div class="hobby-card">
+                                <div class="hobby-image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?q=80&w=500"
+                                     alt="Books Reading"
+                                     title="brain-booster.sh --mode=read -> სტატუსი: ოპტიმიზაცია. ზამთარში ანეიტრალებს დეპრესიას, ზაფხულში კი ამაღლებს სიცოცხლის მუხტს."
+                                        >
+                                </div>
+                                <span>04. Reading vs Depression</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- მარჯვენა მენიუ (MANIFEST) -->
+                    <aside class="right-sidebar">
+                        <div class="sidebar-header"><span>MANIFEST</span></div>
+                        <div class="sidebar-section">
+                            <div class="section-title">📊 სტატისტიკა</div>
+                            <div id="fileMetricsContainer" class="languages-container"></div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- ანიმაციის სექცია -->
+                <section class="animation-section">
+                    <div class="python-logo-wrapper">
+                        <img class="python-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" 
+                        alt="Python Logo" width="120" height="120">
+                    </div>
+                </section>
+
+                <!-- ტერმინალი -->
+                <section class="terminal-panel">
+                    <div class="terminal-header">
+                        <div class="terminal-tabs">
+                            <span>PROBLEMS</span><span>OUTPUT</span><span>DEBUG CONSOLE</span><span class="active-tab">TERMINAL</span>
+                        </div>
+                        <div class="terminal-meta"><span>node ➜ v20.1.0</span></div>
+                    </div>
+                    <div class="terminal-body">                       
+                        <div class="terminal-subtext">
+                             Hobby.html-ში უნდა მოგვიყვეთ(ტექსტი მინიმუმ 100 სიტყვა) თქვენი ჰობის შესახებ სადაც უნდა
+                            გამოიყენოთ მინიმუმ 4 სურათი/ანიმაცია/გიფი. ამ გვერდზეც აუცილებელია ნავიგაცია და ფუტერი
+                        </div>
+                        <div class="typing-line">
+                            <span class="terminal-prompt">➜ ~ </span>
+                            <span id="typing-text"></span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- ფუტერი (Status Bar) -->
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <svg fill="#569cd6" width="16px" height="16px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M30.865 3.448l-6.583-3.167c-0.766-0.37-1.677-0.214-2.276 0.385l-12.609 11.505-5.495-4.167c-0.51-0.391-1.229-0.359-1.703 0.073l-1.76 1.604c-0.583 0.526-0.583 1.443-0.005 1.969l4.766 4.349-4.766 4.349c-0.578 0.526-0.578 1.443 0.005 1.969l1.76 1.604c0.479 0.432 1.193 0.464 1.703 0.073l5.495-4.172 12.615 11.51c0.594 0.599 1.505 0.755 2.271 0.385l6.589-3.172c0.693-0.333 1.13-1.031 1.13-1.802v-21.495c0-0.766-0.443-1.469-1.135-1.802zM24.005 23.266l-9.573-7.266 9.573-7.266z" />
+                        </svg>
+                        <span>IDE-Project</span>
+                        <span>© 2026 ყველა უფლება დაცულია</span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">FAQ</a>
+                        <a href="#">ვაკანსიები</a>
+                    </div>
+                    <div class="social-icons">
+                        <!-- Facebook -->
+                        <a href="#" class="social-link" title="Facebook" target="_blank">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                            </svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" class="social-link" title="Instagram" target="_blank">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="#" class="social-link" title="YouTube" target="_blank">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                        <!-- Gmail -->
+                        <a href="mailto:gychybinidze@gmail.com" class="social-link" title="Gmail">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 5.457v13.086c0 .75-.61 1.357-1.364 1.357H21.14V8.43L12 14.33 2.86 8.43v11.47H1.364C.61 19.9 0 19.293 0 18.543V5.457c0-.78.653-1.413 1.422-1.346l10.578 6.83 10.578-6.83c.77-.067 1.422.566 1.422 1.346z" />
+                            </svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/guram-chubinidze" title="GitHub" target="_blank">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                            </svg>
+                        </a>
+                        <!-- Twitter (X) -->
+                        <a href="#" title="Twitter" target="_blank">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="./js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    // 1. მოვძებნოთ ყველა ჰობის ბარათი და ტერმინალის ტექსტის კონტეინერი
+    const hobbyCards = document.querySelectorAll(".hobby-card");
+    const typingTextEl = document.getElementById("typing-text");
+    
+    let typingInterval = null; // ბეჭდვის ინტერვალის ID
+
+    // ტერმინალის სტილის კურსორის (ციმციმის) დამატება CSS-ის გარეშე, პირდაპირ კოდიდან
+    if (typingTextEl) {
+        typingTextEl.style.borderRight = "2px solid #d4d4d4";
+        typingTextEl.style.animation = "blink 0.75s step-end infinite";
+        
+        // დინამიურად ვამატებთ ციმციმის ანიმაციას დოკუმენტში
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes blink {
+                from, to { border-color: transparent }
+                50% { border-color: #d4d4d4; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // 2. ფუნქცია, რომელიც ბეჭდავს ტექსტს სათითაოდ
+    function typeEffect(text) {
+        // თუ უკვე მიმდინარეობს ბეჭდვა, გავაჩეროთ ძველი
+        clearInterval(typingInterval);
+        
+        typingTextEl.textContent = ""; // ტერმინალის გასუფთავება
+        let index = 0;
+
+        // ინტერვალი ყოველ 50 მილიწამში ამატებს თითო ასოს
+        typingInterval = setInterval(() => {
+            if (index < text.length) {
+                typingTextEl.textContent += text.charAt(index);
+                index++;
+            } else {
+                clearInterval(typingInterval); // ბეჭდვის დასრულება
+            }
+        }, 50); // ბეჭდვის სიჩქარე (მცირე ციფრი = უფრო სწრაფი)
+    }
+
+    // 3. ივენთების მიბმა თითოეულ ბარათზე
+    hobbyCards.forEach(card => {
+        const img = card.querySelector("img");
+        
+        // ვიღებთ ტექსტს სურათის title ატრიბუტიდან (თუ არ აქვს, ვიღებთ ალტერნატიულ ტექსტს - alt)
+        const textToType = img.getAttribute("title") || img.getAttribute("alt") || "Loading asset...";
+
+        // მაუსის მიტანისას (Hover)
+        card.addEventListener("mouseenter", () => {
+            typeEffect(textToType);
+        });
+
+        // მაუსის მოშორებისას (Optional) - თუ გინდა ტერმინალი ისევ დაცარიელდეს
+        card.addEventListener("mouseleave", () => {
+            clearInterval(typingInterval);
+            typingTextEl.textContent = "";
+        });
+    });
+});
+    </script>
+</body>
+
+</html>
