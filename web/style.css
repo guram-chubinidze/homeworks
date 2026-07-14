@@ -1,0 +1,249 @@
+ :root {
+            --brand-dark: #0f172a;
+            --brand-navy: #1e293b;
+            --brand-gold: #f59e0b;
+            --brand-gold-hover: #d97706;
+            --brand-emerald: #10b981;
+            --brand-accent: #3b82f6;
+            --brand-muted: #64748b;
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-serif {
+            font-family: var(--font-serif);
+        }
+
+        /* Custom Navigation Styling */
+        .glass-nav {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: padding 0.3s ease;
+        }
+
+        .nav-link {
+            color: #cbd5e1;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--brand-gold);
+        }
+
+        /* Hero styling */
+        .hero-section {
+            position: relative;
+            min-height: 75vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+        }
+
+        /* Custom Buttons */
+        .btn-gold {
+            background-color: var(--brand-gold);
+            color: var(--brand-dark);
+            font-weight: 700;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-gold:hover, .btn-gold:focus {
+            background-color: var(--brand-gold-hover);
+            color: var(--brand-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-white {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            backdrop-filter: blur(4px);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-white:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Booking Console overlapping */
+        .booking-console-card {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+            border: none;
+            border-radius: 1.25rem;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+        }
+
+        
+
+        /* Premium Room Cards */
+        .room-card {
+            border: 1px solid #f1f5f9;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .room-card:hover {            
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .room-img-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .room-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .room-card:hover .room-img-container img {
+            transform: scale(1.05);
+        }
+
+        .badge-gold {
+            background-color: rgba(15, 23, 42, 0.9);
+            color: var(--brand-gold);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .price-tag {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: var(--brand-gold);
+            color: var(--brand-dark);
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Amenities section styling */
+        .amenity-card {
+            border: 1px solid #f1f5f9;
+            border-radius: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .amenity-card:hover {
+            background-color: #fff;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+            transform: translateY(-3px);
+        }
+
+        .amenity-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background-color: #fef3c7;
+            color: var(--brand-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: var(--brand-dark);
+            color: #94a3b8;
+        }
+
+        .footer-title {
+            color: #fff;
+            position: relative;
+            padding-left: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            bottom: 0.25rem;
+            width: 3px;
+            background-color: var(--brand-gold);
+            border-radius: 2px;
+        }
+
+        .footer-social-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #1e293b;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .footer-social-btn:hover {
+            background-color: var(--brand-gold);
+            color: var(--brand-dark);
+        }
+
+        /* Toast notifications */
+        .toast-container-custom {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1100;
+        }
+
+        /* Offcanvas cart customization */
+        .offcanvas-luxury {
+            background-color: #f8fafc;
+            border-left: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .offcanvas-luxury .offcanvas-header {
+            background-color: var(--brand-dark);
+            color: white;
+        }
+

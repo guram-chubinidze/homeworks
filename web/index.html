@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ka" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyHotel - Premium Tech & Comfort Resort</title>
+	
+	<link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- vanillajs-datepicker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bs5.min.css">
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="style.css">
+
+    
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="fixed-top glass-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark p-0 py-2">
+                <a class="navbar-brand font-serif fs-3 fw-bold tracking-wide" href="#home">
+                    <i class="fa-solid fa-hotel text-warning me-2"></i>Py<span class="text-warning">Hotel</span>
+                </a>
+                
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">მთავარი</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#rooms">ნომრები</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#amenities">სერვისები</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">კონტაქტი</a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Dynamic Cart Trigger -->
+                    <div class="d-flex align-items-center">
+                        <button onclick="showPaid()" class="btn btn-gold px-4 py-2 rounded-3 shadow-sm d-flex align-items-center gap-2 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
+                            <i class="fa-solid fa-suitcase-rolling"></i> 
+                            <span>ჩემი ჯავშნები</span>
+                            <span id="cart-badge" class="badge rounded-pill bg-danger ms-1">0</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Luxury Hero Banner -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1920" 
+                 alt="Luxury Resort Pool" 
+                 onerror="this.src='https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1920'">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+        </div>
+
+        <div class="container relative text-center text-white z-2 max-w-4xl py-5">
+            <span class="d-inline-block border border-warning-subtle bg-dark bg-opacity-50 text-warning px-4 py-2 rounded-pill text-uppercase tracking-wider mb-4 fs-7 fw-semibold">
+                <i class="fa-solid fa-star me-1"></i> ექსკლუზიური 5-ვარსკვლავიანი კურორტი
+            </span>
+            <h1 class="font-serif display-4 display-md-3 fw-bold mb-4">
+                იდეალური <span class="italic text-warning text-opacity-95">სინტაქსი</span> და <br>უმაღლესი კომფორტი
+            </h1>
+            <p class="lead text-slate-300 font-light mb-5 max-w-2xl mx-auto text-light">
+                შეარჩიეთ სასურველი თარიღები, აირჩიეთ ნომერი ლისტიდან და დაჯავშნეთ მომენტალურად პირდაპირ კონსოლიდან.
+            </p>
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <a href="#rooms" class="btn btn-gold btn-lg px-4 py-3 rounded-3 shadow flex-grow-0">
+                    ნომრების დათვალიერება <i class="fa-solid fa-arrow-right ms-2"></i>
+                </a>
+                <a href="#amenities" class="btn btn-outline-white btn-lg px-4 py-3 rounded-3">
+                    სერვისები
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Booking Console Area (As referred in image_1a30f8.png) -->
+    <main class="flex-grow-1 pb-5">
+        <section class="container px-4">
+            <div class="card booking-console-card bg-white p-4 p-md-5">
+                <h3 class="h5 font-serif fw-bold text-dark mb-4 d-flex align-items-center gap-2 border-bottom pb-3">
+                    <i class="fa-solid fa-calendar-days text-warning"></i>
+                    სწრაფი დაჯავშნის პანელი
+                </h3>
+                
+                <div class="row g-4 align-items-end">
+                    <!-- Check-in Date -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="check-in-date" class="form-label text-uppercase text-secondary tracking-wider fw-bold fs-7 mb-2">
+                            <i class="fa-regular fa-calendar-plus text-warning me-1"></i> შემოსვლის თარიღი
+                        </label>
+                        <!-- Changed to text input for flatpickr integration -->
+                        <input type="text" id="check-in-date" class="form-control form-control-lg custom-date-input rounded-3 px-3 py-2.5" placeholder="აირჩიეთ თარიღი">
+                    </div>
+                    
+                    <!-- Check-out Date -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="check-out-date" class="form-label text-uppercase text-secondary tracking-wider fw-bold fs-7 mb-2">
+                            <i class="fa-regular fa-calendar-minus text-warning me-1"></i> გასვლის თარიღი
+                        </label>
+                        <!-- Changed to text input for flatpickr integration -->
+                        <input type="text" id="check-out-date" class="form-control form-control-lg custom-date-input rounded-3 px-3 py-2.5" placeholder="აირჩიეთ თარიღი">
+                    </div>
+
+                    <!-- Room Selector Dropdown -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="console-room-select" class="form-label text-uppercase text-secondary tracking-wider fw-bold fs-7 mb-2">
+                            <i class="fa-solid fa-bed text-warning me-1"></i> აირჩიეთ ნომერი
+                        </label>
+                        <select id="console-room-select" class="form-select form-select-lg bg-light border-2 rounded-3 px-3 py-2.5" style="border-color: #e2e8f0; font-weight: 500; font-size: 1rem;" onchange="handleRoomChange()">
+                            <option value="Flask Cozy Studio" data-price="120">Flask Cozy Studio (120 ₾)</option>
+                            <option value="Django Penthouse Suite" data-price="220">Django Penthouse Suite (220 ₾)</option>
+                            <option value="FastAPI Executive Suite" data-price="350">FastAPI Executive Suite (350 ₾)</option>
+                        </select>
+                    </div>
+
+                    <!-- Booking Summary & Main Instant Action Button -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <button onclick="bookFromConsole()" class="btn btn-gold btn-lg w-100 py-3 rounded-3 shadow d-flex flex-column align-items-center justify-content-center" style="min-height: 58px;">
+                            <span class="fs-6 fw-bold"><i class="fa-solid fa-bolt me-1"></i> დაჯავშნა</span>
+                            <span id="console-pricing-summary" class="fs-7 fw-normal text-muted" style="color: rgba(15,23,42,0.85) !important;">
+                                1 ღამე • 120 ₾
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Notification / Duration Info Badge below the fields -->
+                <div class="mt-3 text-secondary d-flex align-items-center justify-content-between flex-wrap gap-2 fs-7 bg-light p-3 rounded-3">
+                    <span id="date-range-readable">
+                        <i class="fa-solid fa-circle-info text-warning me-1"></i> აირჩიეთ თარიღები დაჯავშნის დასაწყებად.
+                    </span>
+                    <span class="fw-bold text-dark">
+                        ხანგრძლივობა: <span id="days-count-indicator" class="text-warning">1</span> ღამე
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Rooms Showcase -->
+        <section id="rooms" class="py-5 mt-5">
+            <div class="container">
+                <div class="text-center max-w-2xl mx-auto mb-5">
+                    <span class="text-warning text-uppercase tracking-widest fw-bold fs-7 d-block mb-2">ჩვენი ნომრები</span>
+                    <h2 class="font-serif display-5 fw-bold text-dark mt-2">შეარჩიეთ საუკეთესო აპარტამენტი</h2>
+                    <div class="bg-warning mx-auto mt-3 rounded-pill" style="width: 60px; height: 3px;"></div>
+                    <p class="text-muted mt-3">თითოეული ნომერი გთავაზობთ მაქსიმალურ კომფორტს, სწრაფ ინტერნეტსა და სმარტ სერვისებს.</p>
+                </div>
+
+                <!-- Rooms Grid -->
+                <div class="row g-4">
+                    <!-- Room 1: Flask Cozy Studio -->
+                    <div class="col-12 col-lg-4">
+                        <div class="room-card">
+                            <div class="room-img-container">
+                                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600" 
+                                     alt="Flask Cozy Studio" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600'">
+                                <span class="badge badge-gold position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill uppercase">
+                                    Flask Studio
+                                </span>
+                                <div class="price-tag">
+                                    120 ₾ <span class="fs-7 fw-normal">/ ღამე</span>
+                                </div>
+                            </div>
+                            <div class="p-4 p-md-5 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h3 class="h4 font-serif fw-bold text-dark m-0">Flask Cozy Studio</h3>
+                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2.5 py-1.5 rounded d-flex align-items-center gap-1.5">
+                                         თავისუფალია
+                                    </span>
+                                </div>
+                                <div class="d-flex gap-3 text-secondary fs-7 fw-semibold mb-4 pb-4 border-b border-light border-bottom">
+                                    <span><i class="fa-solid fa-expand text-warning me-1"></i> 35 მ²</span>
+                                    <span><i class="fa-solid fa-wifi text-warning me-1"></i> 1 Gbps</span>
+                                    <span><i class="fa-solid fa-tv text-warning me-1"></i> Smart TV</span>
+                                </div>
+                                <p class="text-secondary fs-6 leading-relaxed mb-4 flex-grow-1">
+                                    მინიმალისტური დიზაინი სუპერ-სწრაფი გარემოთი. იდეალურია მათთვის, ვინც აფასებს სისუფთავეს, სისწრაფესა და მაღალ ეფექტურობას.
+                                </p>
+                                <button onclick="selectAndBook('Flask Cozy Studio')" class="btn btn-dark btn-lg w-full py-3 rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                    <i class="fa-solid fa-calendar-check text-warning"></i> არჩევა და დაჯავშნა
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room 2: Django Penthouse -->
+                    <div class="col-12 col-lg-4">
+                        <div class="room-card">
+                            <div class="room-img-container">
+                                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600" 
+                                     alt="Django Penthouse Suite" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=600'">
+                                <span class="badge badge-gold position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill uppercase">
+                                    Django Suite
+                                </span>
+                                <div class="price-tag">
+                                    220 ₾ <span class="fs-7 fw-normal">/ ღამე</span>
+                                </div>
+                            </div>
+                            <div class="p-4 p-md-5 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h3 class="h4 font-serif fw-bold text-dark m-0">Django Penthouse Suite</h3>
+                                    <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2.5 py-1.5 rounded d-flex align-items-center gap-1.5">
+                                         თითქმის სავსე
+                                    </span>
+                                </div>
+                                <div class="d-flex gap-3 text-secondary fs-7 fw-semibold mb-4 pb-4 border-b border-light border-bottom">
+                                    <span><i class="fa-solid fa-expand text-warning me-1"></i> 65 მ²</span>
+                                    <span><i class="fa-solid fa-water text-warning me-1"></i> ზღვის ხედი</span>
+                                    <span><i class="fa-solid fa-martini-glass text-warning me-1"></i> ბარი</span>
+                                </div>
+                                <p class="text-secondary fs-6 leading-relaxed mb-4 flex-grow-1">
+                                    სრულყოფილად აღჭურვილი პრემიუმ ლუქსი მაქსიმალური კომფორტითა და პანორამული ხედებით. განიცადეთ ნამდვილი ესთეტიკა.
+                                </p>
+                                <button onclick="selectAndBook('Django Penthouse Suite')" class="btn btn-dark btn-lg w-full py-3 rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                    <i class="fa-solid fa-calendar-check text-warning"></i> არჩევა და დაჯავშნა
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room 3: FastAPI Executive Suite -->
+                    <div class="col-12 col-lg-4">
+                        <div class="room-card">
+                            <div class="room-img-container">
+                                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=600" 
+                                     alt="FastAPI Executive Suite" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=600'">
+                                <span class="badge badge-gold position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill uppercase">
+                                    VIP Executive
+                                </span>
+                                <div class="price-tag">
+                                    350 ₾ <span class="fs-7 fw-normal">/ ღამე</span>
+                                </div>
+                            </div>
+                            <div class="p-4 p-md-5 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h3 class="h4 font-serif fw-bold text-dark m-0">FastAPI Executive Suite</h3>
+                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2.5 py-1.5 rounded d-flex align-items-center gap-1.5">
+                                         თავისუფალია
+                                    </span>
+                                </div>
+                                <div class="d-flex gap-3 text-secondary fs-7 fw-semibold mb-4 pb-4 border-b border-light border-bottom">
+                                    <span><i class="fa-solid fa-expand text-warning me-1"></i> 110 მ²</span>
+                                    <span><i class="fa-solid fa-spa text-warning me-1"></i> ჯაკუზი</span>
+                                    <span><i class="fa-solid fa-bell text-warning me-1"></i> VIP</span>
+                                </div>
+                                <p class="text-secondary fs-6 leading-relaxed mb-4 flex-grow-1">
+                                    ელიტარული კლასის აპარტამენტი. შეუზღუდავი შესაძლებლობები, პირადი ტერასა, შეხვედრების სივრცე და პერსონალური ასისტენტი.
+                                </p>
+                                <button onclick="selectAndBook('FastAPI Executive Suite')" class="btn btn-dark btn-lg w-full py-3 rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                    <i class="fa-solid fa-calendar-check text-warning"></i> არჩევა და დაჯავშნა
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Brand Amenities Section -->
+        <section id="amenities" class="py-5 bg-white border-top border-bottom mt-5">
+            <div class="container py-4">
+                <div class="text-center max-w-2xl mx-auto mb-5">
+                    <span class="text-warning text-uppercase tracking-widest fw-bold fs-7 d-block mb-2">უმაღლესი სტანდარტები</span>
+                    <h2 class="font-serif display-6 fw-bold text-dark mt-2">პრემიუმ კლასის სერვისები</h2>
+                    <div class="bg-warning mx-auto mt-3 rounded-pill" style="width: 60px; height: 3px;"></div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Service 1 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="amenity-card p-4 text-center h-100 bg-light">
+                            <div class="amenity-icon mx-auto mb-4">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <h4 class="font-serif h5 fw-bold mb-3 text-dark">უგემრიელესი სამზარეულო</h4>
+                            <p class="text-secondary fs-7 leading-relaxed m-0">პროფესიონალი შეფ-მზარეულები მზად არიან შემოგთავაზონ უნიკალური გემოები.</p>
+                        </div>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="amenity-card p-4 text-center h-100 bg-light">
+                            <div class="amenity-icon mx-auto mb-4">
+                                <i class="fa-solid fa-spa"></i>
+                            </div>
+                            <h4 class="font-serif h5 fw-bold mb-3 text-dark">სპა & რელაქსაცია</h4>
+                            <p class="text-secondary fs-7 leading-relaxed m-0">სრული რელაქსაცია და გამაჯანსაღებელი მასაჟები თქვენი სხეულისთვის.</p>
+                        </div>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="amenity-card p-4 text-center h-100 bg-light">
+                            <div class="amenity-icon mx-auto mb-4">
+                                <i class="fa-solid fa-key"></i>
+                            </div>
+                            <h4 class="font-serif h5 fw-bold mb-3 text-dark">სმარტ სისტემები</h4>
+                            <p class="text-secondary fs-7 leading-relaxed m-0">ოთახის სრული კონტროლი ხმით ან მობილური აპლიკაციით.</p>
+                        </div>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="amenity-card p-4 text-center h-100 bg-light">
+                            <div class="amenity-icon mx-auto mb-4">
+                                <i class="fa-solid fa-person-shelter"></i>
+                            </div>
+                            <h4 class="font-serif h5 fw-bold mb-3 text-dark">24/7 მხარდაჭერა</h4>
+                            <p class="text-secondary fs-7 leading-relaxed m-0">ჩვენი გუნდი მზად არის ნებისმიერ დროს უზრუნველყოს თქვენი კომფორტი.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Comprehensive Premium Footer -->
+    <footer id="contact" class="border-top">
+        <div class="container py-5">
+            <div class="row g-5">
+                <!-- Branding and Intro -->
+                <div class="col-12 col-lg-4">
+                    <a href="#home" class="navbar-brand font-serif fs-2 fw-bold text-white d-block mb-4">
+                        <i class="fa-solid fa-hotel text-warning me-2"></i>Py<span class="text-warning">Hotel</span>
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        სტუმარმასპინძლობის ახალი სტანდარტი, სადაც სუფთა კოდის ორგანიზებულობა და უმაღლესი კლასის კომფორტი ქმნის დაუვიწყარ გამოცდილებას.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-social-btn">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="footer-social-btn">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="footer-social-btn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="col-12 col-sm-6 col-lg-2">
+                    <h4 class="h6 font-serif footer-title uppercase tracking-wider">სასარგებლო</h4>
+                    <ul class="list-unstyled d-flex flex-column gap-2 text-sm">
+                        <li><a href="#home" class="text-slate-400 text-decoration-none hover-warning"><i class="fa-solid fa-chevron-right text-xs text-warning me-2" style="font-size: 10px;"></i> მთავარი</a></li>
+                        <li><a href="#rooms" class="text-slate-400 text-decoration-none hover-warning"><i class="fa-solid fa-chevron-right text-xs text-warning me-2" style="font-size: 10px;"></i> ნომრები</a></li>
+                        <li><a href="#amenities" class="text-slate-400 text-decoration-none hover-warning"><i class="fa-solid fa-chevron-right text-xs text-warning me-2" style="font-size: 10px;"></i> სერვისები</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact details -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <h4 class="h6 font-serif footer-title uppercase tracking-wider">კონტაქტი</h4>
+                    <ul class="list-unstyled d-flex flex-column gap-3 text-sm text-slate-400">
+                        <li class="d-flex align-items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-warning fs-5 mt-1"></i>
+                            <span>ი. ჭავჭავაძის გამზირი, თბილისი, საქართველო</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-phone text-warning fs-5"></i>
+                            <span>+995 (32) 211 22 33</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-envelope text-warning fs-5"></i>
+                            <span>welcome@pyhotel.dev</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Form -->
+                <div class="col-12 col-lg-3">
+                    <h4 class="h6 font-serif footer-title uppercase tracking-wider">სიახლეები</h4>
+                    <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                        გამოიწერეთ სიახლეები და მიიღეთ ექსკლუზიური შეთავაზებები პირველებმა.
+                    </p>
+                    <form onsubmit="event.preventDefault(); document.getElementById('newsletter-input').value=''; triggerToast('თქვენ წარმატებით გამოიწერეთ სიახლეები!');" class="d-flex flex-column gap-2">
+                        <input type="email" id="newsletter-input" placeholder="თქვენი ელ-ფოსტა" class="form-control bg-dark border-secondary text-white placeholder-slate-500 py-2.5 rounded-3" style="border-color: rgba(255,255,255,0.15) !important;" required>
+                        <button type="submit" class="btn btn-gold w-100 py-2.5 rounded-3 font-bold">
+                            გამოწერა
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="border-secondary my-5" style="border-color: rgba(255,255,255,0.08) !important;">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 text-sm text-slate-500">
+                <span>&copy; 2026 PyHotel. ყველა უფლება დაცულია.</span>
+                <div class="d-flex gap-4">
+                    <a href="#" class="text-slate-500 text-decoration-none hover-white">წესები და პირობები</a>
+                    <a href="#" class="text-slate-500 text-decoration-none hover-white">კონფიდენციალურობა</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Offcanvas Cart Menu (ჩემი ჯავშნები) -->
+    <div class="offcanvas offcanvas-end offcanvas-luxury shadow-lg" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel" style="width: 450px; max-width: 100vw;">
+        <div class="offcanvas-header p-4">
+            <h5 class="offcanvas-title font-serif fw-bold d-flex align-items-center gap-2" id="cartOffcanvasLabel">
+                <i class="fa-solid fa-suitcase text-warning"></i> ჩემი ჯავშნები
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+            <!-- Bookings List -->
+            <div id="cart-items-container" class="overflow-y-auto mb-4 flex-grow-1">
+                <!-- Dynamic cart list items injected by JS -->
+            </div>
+
+            <!-- Cart Footer Info and Checkout Mock -->
+            <div class="border-top pt-4">
+                <div class="d-flex justify-content-between align-items-baseline mb-3">
+                    <span class="fw-semibold text-secondary">ჯამური ღირებულება:</span>
+                    <span id="cart-total-price" class="fs-3 fw-extrabold text-warning">0 ₾</span>
+                </div>
+                <button onclick="checkoutAll()" id="cart-checkout-btn" class="btn btn-gold btn-lg w-100 py-3 rounded-3 fw-bold uppercase fs-7 shadow-sm">
+                    გადახდა
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Custom Confirmation Modal (Replacing standard alert() to fit safety guards) -->
+    <div class="modal fade" id="checkoutSuccessModal" tabindex="-1" aria-labelledby="checkoutSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg">
+                <div class="modal-header bg-dark text-white rounded-top-4 p-4 border-0">
+                    <h5 class="modal-title font-serif fw-bold d-flex align-items-center gap-2" id="checkoutSuccessModalLabel">
+                        <i class="fa-solid fa-circle-check text-success"></i> გადახდა წარმატებულია!
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <div class="mx-auto mb-4 bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-hotel fs-1"></i>
+                    </div>
+                    <h4 class="font-serif fw-bold mb-3">თქვენი ჯავშნები დადასტურებულია!</h4>
+                    <p class="text-secondary leading-relaxed mb-4">
+                        ჯავშნების სრული ჩამონათვალი, ელექტრონული დასტური და გადახდის ქვითარი გამოგზავნილია თქვენს ელ-ფოსტაზე.
+                    </p>
+                    <div class="bg-light rounded-3 p-3 mb-3 text-start fs-7 text-secondary">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>დაჯავშნილი ნომრები:</span>
+                            <span id="modal-booking-count" class="fw-bold text-dark">0</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>სულ გადახდილია:</span>
+                            <span id="modal-booking-sum" class="fw-bold text-success">0 ₾</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer p-4 border-0">
+                    <button type="button" class="btn btn-dark w-100 py-3 rounded-3 fw-bold" data-bs-dismiss="modal">დახურვა</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast System Container -->
+    <div class="toast-container-custom">
+        <div id="toast" class="toast align-items-center text-white bg-dark border-0 rounded-4 shadow-lg p-2 transition-all" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center justify-content-center bg-warning bg-opacity-25 text-warning rounded-3 p-2" style="width: 32px; height: 32px;">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <span id="toast-message" class="fw-semibold">შეტყობინება</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- vanillajs-datepicker -->
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/ka.js"></script>
+
+    <script  src="main.js"></script>
+</body>
+</html>
