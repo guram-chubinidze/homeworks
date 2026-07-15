@@ -34,6 +34,19 @@ class Library:
             self.inventory[new_book] = amount
 
         print(f"\n✔️ წიგნი \"{title}\" წარმატებით დაემატა. რაოდენობა: {self.inventory[new_book]}")
+    
+    def search_by_title(self, query: str):
+        print(f"\n--- ძებნის შედეგი: '{query}' ---")
+        found = False
+        # ვეძებთ ლექსიკონის (inventory) გასაღებებში (Book ობიექტებში)
+        for book in self.inventory.keys():
+            if query.lower() in book.title.lower():
+                qty = self.inventory[book]
+                status = f"{qty} კოპია" if qty > 0 else "ხელმიუწვდომელია"
+                print(f"📖 {book} -> [{status}]")
+                found = True
+        if not found:
+            print("❌ წიგნი ამ სათაურით ვერ მოიძებნა.") 
 
     def display_all_books(self):
         print("\n--- ბიბლიოთეკაში არსებული წიგნები ---\n")
