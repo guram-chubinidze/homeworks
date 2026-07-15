@@ -8,6 +8,7 @@
   <li><a href="https://github.com/guram-chubinidze/homeworks/blob/final_1/3.py" target="_blank">დავალება 3</a></li>
   <li><a href="https://github.com/guram-chubinidze/homeworks/blob/final_1/4.py" target="_blank">დავალება 4</a></li>
   <li><a href="https://github.com/guram-chubinidze/homeworks/blob/final_1/5.py" target="_blank">დავალება 5</a></li>
+  <li><a href="https://github.com/guram-chubinidze/homeworks/blob/final_1/oop.py" target="_blank">OOP</a></li>
 </ul>
 
 ---
