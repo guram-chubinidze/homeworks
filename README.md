@@ -1,2 +1,7 @@
-# homeworks
-Python homework
+# დავალება #6
+
+- [დავალება 1 - 6](005.py)
+- [დავალება 7 - 9](006.py)
+- [დავალება 10 სურათი 1](git_commands.png)
+- [დავალება 10 სურათი 2](git_history.png)
+- [დავალება 10 ტექსტი](git_commands.txt)
