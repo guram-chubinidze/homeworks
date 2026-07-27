@@ -1,2 +1,3 @@
-# homeworks
-Python homework
+# დავალება #10
+
+- [დავალება](010.py)
